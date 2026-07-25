@@ -25,19 +25,35 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 DEFAULT_WORKSHEET_NAME = "Jobs"
 
 
-def _get_client() -> gspread.Client:
-    raw_json = os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    info = json.loads(raw_json)
+def _service_account_info() -> dict:
+    # .strip() guards against a stray trailing newline/space that CI secret
+    # UIs (and copy-paste in general) commonly introduce - a raw JSON string
+    # with a trailing "\n" still parses fine, but a padded sheet ID below
+    # would silently 404 since it no longer matches the real ID.
+    raw_json = os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"].strip()
+    return json.loads(raw_json)
+
+
+def _get_client(info: dict) -> gspread.Client:
     creds = Credentials.from_service_account_info(info, scopes=SCOPES)
     return gspread.authorize(creds)
 
 
 def get_worksheet() -> gspread.Worksheet:
-    client = _get_client()
-    sheet_id = os.environ["GOOGLE_SHEET_ID"]
+    info = _service_account_info()
+    client = _get_client(info)
+    sheet_id = os.environ["GOOGLE_SHEET_ID"].strip()
     worksheet_name = os.environ.get("GOOGLE_SHEET_WORKSHEET_NAME", DEFAULT_WORKSHEET_NAME)
 
-    spreadsheet = client.open_by_key(sheet_id)
+    try:
+        spreadsheet = client.open_by_key(sheet_id)
+    except gspread.SpreadsheetNotFound:
+        raise RuntimeError(
+            f"Spreadsheet '{sheet_id}' not found or not accessible. Check that "
+            f"GOOGLE_SHEET_ID is exactly the ID from the sheet's URL (no extra "
+            f"quotes/whitespace), and that the sheet is shared with "
+            f"'{info.get('client_email')}' as Editor."
+        ) from None
     try:
         worksheet = spreadsheet.worksheet(worksheet_name)
     except gspread.WorksheetNotFound:
