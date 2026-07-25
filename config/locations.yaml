@@ -1,0 +1,65 @@
+# Location scope: Karlsruhe + ~30km radius.
+#
+# Matching rule (see matching.py):
+#   1) If a job record has coordinates (lat/lon), compute haversine distance
+#      from `center` and accept if <= radius_km. This is the preferred path
+#      (the Bundesagentur API gives coordinates for every listing).
+#   2) Otherwise, fall back to checking whether the job's location string
+#      contains (case-insensitively) one of the `known_towns` names below.
+#
+# known_towns is a practical list of towns/cities within ~30km of Karlsruhe
+# that realistically post job listings. It is not exhaustive down to every
+# hamlet — the coordinate-based check above is the more accurate method
+# whenever a source provides coordinates.
+
+center:
+  name: Karlsruhe
+  lat: 49.0069
+  lon: 8.4037
+
+radius_km: 30
+
+known_towns:
+  - Karlsruhe
+  - Ettlingen
+  - Rastatt
+  - Baden-Baden
+  - Bruchsal
+  - Bretten
+  - Stutensee
+  - Waldbronn
+  - Gaggenau
+  - Malsch
+  - Durmersheim
+  - Pfinztal
+  - Karlsbad
+  - Linkenheim-Hochstetten
+  - Eggenstein-Leopoldshafen
+  - Graben-Neudorf
+  - Philippsburg
+  - Waghäusel
+  - Ubstadt-Weiher
+  - Östringen
+  - Kraichtal
+  - Walzbachtal
+  - Königsbach-Stein
+  - Remchingen
+  - Kämpfelbach
+  - Pforzheim
+  - Weingarten (Baden)
+  - Forst (Baden)
+  - Kuppenheim
+  - Bietigheim (Baden)
+  - Steinmauern
+  - Au am Rhein
+  - Elchesheim-Illingen
+  - Iffezheim
+  - Ötigheim
+  - Muggensturm
+  - Dettenheim
+  - Sulzfeld
+  - Oberderdingen
+  - Gondelsheim
+  - Wörth am Rhein
+  - Rheinstetten
+  - Kronau

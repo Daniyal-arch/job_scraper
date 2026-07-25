@@ -1,0 +1,163 @@
+# Keyword taxonomy for matching GIS / Geospatial / Remote Sensing / Computer Vision
+# Werkstudent postings, in English and German.
+#
+# Matching rule (see matching.py): a job is considered relevant only if
+#   1) at least one term from `job_type_terms` is found (Werkstudent-type role), AND
+#   2) at least one term from any category below (including tool_boosters) is found
+#      in the combined title + description text.
+# The matched category name(s) are recorded so we know *why* a job matched.
+
+job_type_terms:
+  - Werkstudent
+  - Werkstudentin
+  - "Werkstudent(in)"
+  - "Werkstudent*in"
+  - "Werkstudent:in"
+  - "Werkstudent/in"
+  - studentische Hilfskraft
+  - "wissenschaftliche Hilfskraft"
+  - HiWi
+  - working student
+
+categories:
+  gis:
+    en:
+      - GIS
+      - Geographic Information System
+      - Geographic Information Systems
+    de:
+      - Geoinformationssystem
+      - Geoinformationssysteme
+      - Geoinformatik
+      - Geoinformatiker
+      - Geoinformatikerin
+
+  geospatial:
+    en:
+      - Geospatial
+      - Geospatial data
+      - Geospatial analysis
+      - Geospatial analyst
+    de:
+      - Geodaten
+      - Geodatenmanagement
+      - Raumbezogene Daten
+      - Raumdaten
+
+  geospatial_ai:
+    en:
+      - GeoAI
+      - Geo-AI
+      - Geospatial AI
+    de:
+      - GeoKI
+      - Geo-KI
+      - Räumliche KI
+
+  remote_sensing:
+    en:
+      - Remote Sensing
+      - Satellite Remote Sensing
+    de:
+      - Fernerkundung
+
+  surveying_geodesy:
+    en:
+      - Surveying
+      - Land Surveying
+      - Geodesy
+      - Geodetic
+    de:
+      - Vermessung
+      - Vermessungswesen
+      - Vermessungstechnik
+      - Vermessungsingenieur
+      - Vermessungstechniker
+      - Geodäsie
+      - Geodät
+      - Geodätin
+
+  photogrammetry:
+    en:
+      - Photogrammetry
+    de:
+      - Photogrammetrie
+
+  cartography:
+    en:
+      - Cartography
+      - Cartographic
+    de:
+      - Kartographie
+      - Kartografie
+      - Kartograph
+
+  computer_vision:
+    en:
+      - Computer Vision
+      - Machine Vision
+      - Image Recognition
+    de:
+      - Maschinelles Sehen
+      - Bildverarbeitung
+      - Bilderkennung
+
+  earth_observation:
+    en:
+      - Earth Observation
+      - Satellite Imagery
+    de:
+      - Erdbeobachtung
+      - Satellitendaten
+      - Satellitenbild
+      - Satellitenbilder
+
+  gnss_positioning:
+    en:
+      - GNSS
+      - GPS Positioning
+    de:
+      - GNSS
+      - GPS-Ortung
+
+  drone_uav_mapping:
+    en:
+      - Drone Mapping
+      - UAV Mapping
+      - UAV Surveying
+    de:
+      - Drohnenvermessung
+      - Drohnenbefliegung
+
+  spatial_data_science:
+    en:
+      - Spatial Data Science
+      - Geodata Science
+      - Spatial Analytics
+    de:
+      - Räumliche Datenanalyse
+      - Geodatenanalyse
+
+  geomatics:
+    en:
+      - Geomatics
+      - Geoinformatics
+    de:
+      - Geomatik
+
+  # Secondary/tool signal: on its own this is weaker evidence (e.g. "GPS" or
+  # "LiDAR" can show up in unrelated postings), but combined with the
+  # Werkstudent filter it's still a useful net. Keep this list tunable.
+  tool_boosters:
+    - ArcGIS
+    - QGIS
+    - PostGIS
+    - GDAL
+    - Esri
+    - GeoServer
+    - geopandas
+    - rasterio
+    - Sentinel-1
+    - Sentinel-2
+    - LiDAR
+    - LIDAR
